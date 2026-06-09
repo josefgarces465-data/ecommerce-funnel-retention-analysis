@@ -1,36 +1,95 @@
-# MercadoLibre Funnel & Retention Analysis
+# Análisis de Embudo de Conversión y Retención de Usuarios
 
-## 📌 Overview
+## Descripción
 
-Este proyecto analiza el comportamiento de los usuarios dentro del embudo de conversión de MercadoLibre y evalúa los niveles de retención mediante análisis de cohortes.
+En este proyecto trabajé con información de comportamiento de usuarios en una plataforma de comercio electrónico para analizar dos aspectos clave:
 
-El objetivo fue identificar los principales puntos de abandono durante el proceso de compra y comprender cómo evoluciona la retención de usuarios a lo largo del tiempo para detectar oportunidades de mejora en la experiencia del cliente.
+- El recorrido de los usuarios dentro del proceso de compra.
+- La retención de usuarios después de su registro.
 
----
-
-## 🎯 Objetivos del Negocio
-
-- Medir la conversión en cada etapa del funnel de compra.
-- Identificar los puntos de mayor abandono.
-- Comparar el desempeño entre países.
-- Analizar la retención de usuarios por cohortes.
-- Generar recomendaciones basadas en datos para incrementar la conversión y la fidelización.
+El análisis fue realizado utilizando SQL y tuvo como objetivo identificar oportunidades de mejora tanto en la conversión como en la fidelización de clientes.
 
 ---
 
-## 🛠️ Herramientas Utilizadas
+## Herramientas utilizadas
 
 - SQL
 - PostgreSQL
 - Excel
-- Funnel Analysis
-- Cohort Analysis
-- KPI Reporting
-- Data Analytics
+- Análisis de Cohortes
+- Análisis de Funnel
 
 ---
 
-## 📂 Estructura del Proyecto
+## Objetivos del análisis
+
+### Embudo de conversión
+
+Analizar cómo avanzan los usuarios a través de las diferentes etapas del proceso de compra:
+
+```text
+First Visit
+↓
+Select Item
+↓
+Add to Cart
+↓
+Begin Checkout
+↓
+Add Shipping Info
+↓
+Add Payment Info
+↓
+Purchase
+```
+
+### Retención
+
+Evaluar qué porcentaje de usuarios continúa activo después de su registro en distintos momentos del tiempo (D7, D14, D21 y D28).
+
+---
+
+## Proceso realizado
+
+### Análisis del Funnel
+
+Se construyeron consultas SQL utilizando CTEs para calcular la cantidad de usuarios que alcanzaban cada etapa del embudo y posteriormente se calcularon las tasas de conversión por país.
+
+### Análisis de Retención
+
+Se realizó un análisis por cohortes agrupando a los usuarios según su mes de registro para medir la permanencia y actividad a lo largo del tiempo.
+
+---
+
+## Principales hallazgos
+
+### Funnel de conversión
+
+- La mayor parte de los usuarios que visitan la plataforma llegan a visualizar productos.
+- El mayor abandono ocurre entre la visualización de productos y la adición al carrito.
+- La conversión disminuye considerablemente a medida que los usuarios avanzan hacia el checkout y el pago.
+- Existen diferencias importantes en el desempeño del funnel entre países.
+
+### Retención
+
+- La actividad de los usuarios se mantiene relativamente estable durante los primeros días después del registro.
+- A partir de la segunda semana se observa una disminución progresiva de la retención.
+- Algunas cohortes presentan un mejor comportamiento que otras, lo que podría estar relacionado con campañas o cambios en la experiencia de usuario.
+
+---
+
+## Conclusiones
+
+A partir del análisis se identificó que las principales oportunidades de mejora se encuentran en dos frentes:
+
+1. Incrementar la cantidad de usuarios que agregan productos al carrito mediante mejoras en la experiencia de compra.
+2. Implementar estrategias de retención durante las primeras semanas de uso para reducir la pérdida de usuarios recurrentes.
+
+Este ejercicio me permitió aplicar conceptos de análisis de embudos, cohortes, métricas de conversión y retención utilizando SQL para responder preguntas de negocio a partir de datos.
+
+---
+
+## Archivos del proyecto
 
 ```text
 sql/
@@ -43,161 +102,15 @@ reports/
 
 ---
 
-## 📊 Metodología
-
-### Funnel Analysis
-
-Se construyó un embudo utilizando las siguientes etapas:
-
-```text
-First Visit
-    ↓
-Select Item
-    ↓
-Add to Cart
-    ↓
-Begin Checkout
-    ↓
-Add Shipping Info
-    ↓
-Add Payment Info
-    ↓
-Purchase
-```
-
-Posteriormente se calcularon las tasas de conversión de cada etapa respecto al total de usuarios que realizaron una primera visita.
-
-### Cohort Retention Analysis
-
-Se agruparon los usuarios según su mes de registro para analizar la retención en:
-
-- Día 7 (D7)
-- Día 14 (D14)
-- Día 21 (D21)
-- Día 28 (D28)
-
----
-
-# 📈 Resultados del Funnel
-
-| Etapa | Conversión |
-|---------|---------:|
-| Select Item | 76.90% |
-| Add to Cart | 11.01% |
-| Begin Checkout | 4.00% |
-| Add Shipping Info | 2.42% |
-| Add Payment Info | 2.09% |
-| Purchase | 1.25% |
-
-### Hallazgo Principal
-
-Aunque el 76.9% de los usuarios visualiza productos, únicamente el 11.0% agrega artículos al carrito.
-
-Esto indica que el mayor punto de abandono ocurre entre:
-
-**Select Item → Add to Cart**
-
-La evidencia sugiere una posible fricción relacionada con:
-
-- Precio del producto.
-- Costos de envío.
-- Comparación con otras opciones.
-- Falta de intención inmediata de compra.
-
----
-
-# 🌎 Análisis por País
-
-Se observaron diferencias significativas en las tasas de conversión entre mercados.
-
-### Países con mejor conversión a compra
-
-- Uruguay
-- Bolivia
-- México
-
-Estos países mostraron una mayor capacidad para convertir usuarios hasta la etapa final del funnel.
-
-### Oportunidades de mejora
-
-- Colombia
-- Ecuador
-- Paraguay
-
-Los usuarios muestran interés inicial pero presentan mayores tasas de abandono durante el proceso de checkout.
-
----
-
-# 🔄 Resultados de Retención
-
-### Retención promedio observada
-
-| Periodo | Retención |
-|----------|---------:|
-| D7 | 85% - 88% |
-| D14 | 53% - 57% |
-| D21 | 19% - 27% |
-| D28 | 1% - 3% |
-
-### Hallazgo Principal
-
-La retención permanece sólida durante la primera semana, pero disminuye progresivamente después del día 14.
-
-La caída más pronunciada ocurre entre:
-
-**D14 → D28**
-
-Esto sugiere que muchos usuarios realizan interacciones iniciales, pero no desarrollan hábitos de uso recurrente en el largo plazo.
-
----
-
-# 👥 Análisis de Cohortes
-
-Las cohortes con mejor desempeño fueron:
-
-- Marzo 2025
-- Mayo 2025
-
-Estas cohortes alcanzaron los niveles más altos de retención en D21, superando el promedio general.
-
-Esto podría indicar la efectividad de campañas comerciales, promociones o mejoras en la experiencia del usuario implementadas durante esos períodos.
-
----
-
-# 💡 Recomendaciones
-
-### Funnel de Conversión
-
-- Optimizar las páginas de producto.
-- Mejorar la transparencia de costos de envío.
-- Incorporar incentivos para completar la compra.
-- Reducir fricciones durante el checkout.
-
-### Retención
-
-- Implementar campañas de reactivación.
-- Diseñar estrategias de fidelización.
-- Personalizar comunicaciones según comportamiento.
-- Incentivar compras recurrentes durante los primeros 14 días.
-
----
-
-# 📚 Habilidades Demostradas
-
-- SQL avanzado
-- Common Table Expressions (CTEs)
-- Funnel Analysis
-- Cohort Analysis
-- Retention Metrics
-- KPI Development
-- Business Analytics
-- Data Storytelling
-- Insight Generation
-
----
-
-## 👨‍💻 Autor
+## Autor
 
 **Jose Fernando Garcés Saavedra**
 
-Data Analyst | Business Intelligence Analyst
+
+## Lo que aprendí
+
+Durante este proyecto reforcé el uso de CTEs para estructurar consultas complejas y comprendí cómo los análisis de funnel y cohortes pueden ayudar a identificar oportunidades de mejora en la experiencia de usuario y en la conversión de una plataforma digital.
+
+Analista de Datos | Business Intelligence
+
+GitHub: https://github.com/josefgarces465-data
